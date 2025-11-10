@@ -1,0 +1,167 @@
+.navbar {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cart-icon {
+  font-size: 1.25rem;
+  color: #333;
+  text-decoration: none;
+}
+
+.auth-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.auth-button:first-of-type {
+  background: transparent;
+  color: #007bff;
+}
+
+.auth-button:last-of-type {
+  background: #007bff;
+  color: white;
+}
+
+.auth-button:hover {
+  opacity: 0.8;
+}
+
+.user-name {
+  color: #333;
+  margin-right: 1rem;
+}
+
+/* Mobile styles */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  z-index: 1001;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .nav-links.desktop,
+  .nav-auth.desktop {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 72px);
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .nav-overlay {
+    display: block;
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .mobile-menu .nav-link {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .mobile-menu .auth-button {
+    margin: 0.5rem 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-menu .user-name {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+}
