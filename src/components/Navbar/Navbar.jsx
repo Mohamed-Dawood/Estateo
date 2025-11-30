@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
+import { Menu, X, Heart } from 'lucide-react';
+import { navLinks as allNavLinks } from '../../constants/data';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -10,7 +11,6 @@ export default function Navbar() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Prevent scrolling when mobile menu is open
     document.body.style.overflow = !isOpen ? 'hidden' : '';
   };
 
@@ -20,106 +20,107 @@ export default function Navbar() {
     document.body.style.overflow = '';
   };
 
-  const navLinks = [
-    { to: '/about', text: 'About' },
-    { to: '/projects', text: 'Projects' },
-    { to: '/services', text: 'Services' },
-    { to: '/about-us', text: 'About Us' },
-    { to: '/contact', text: 'Contact Us' },
-  ];
+  const closeMenu = () => {
+    setIsOpen(false);
+    document.body.style.overflow = '';
+  };
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   return (
-    <>
-      <nav className="navbar">
-        <div className="nav-container">
-          <Link to="/" className="logo" onClick={() => isOpen && toggleMenu()}>
-            <h3>Estateo</h3>
+    <nav className="navbar">
+      <div className="nav-container">
+        <Link to="/" className="logo" onClick={closeMenu}>
+          Estateo
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="nav-links desktop">
+          {allNavLinks.map((link) => (
+            <Link key={link.to} to={link.to} className="nav-link">
+              {link.text}
+            </Link>
+          ))}
+        </div>
+
+        <div className="nav-auth desktop">
+          <Link to="/wishlist" className="wishlist-icon">
+            <Heart size={20} />
+            <span className="badge">3</span> {/* Example badge */}
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="nav-links desktop">
-            {navLinks.map((link) => (
-              <Link key={link.to} to={link.to} className="nav-link">
-                {link.text}
+          {user ? (
+            <>
+              <span className="user-name">Welcome, {user.name}</span>
+              <button onClick={handleLogout} className="auth-button signout">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/signin" className="auth-button signin">
+                Sign In
               </Link>
-            ))}
-          </div>
-
-          <div className="nav-auth desktop">
-            <Link to="/cart" className="cart-icon">
-              <FaShoppingCart />
-            </Link>
-            {user ? (
-              <>
-                <span className="user-name">Welcome, {user.name}</span>
-                <button onClick={handleLogout} className="auth-button">
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/signin" className="auth-button">
-                  Sign In
-                </Link>
-                <Link to="/signup" className="auth-button">
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button className="mobile-menu-btn" onClick={toggleMenu}>
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </button>
-
-          {/* Mobile Navigation */}
-          <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="nav-link"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.text}
+              <Link to="/signup" className="auth-button signout">
+                Sign Up
               </Link>
-            ))}
-            <Link
-              to="/cart"
-              className="nav-link"
-              onClick={() => setIsOpen(false)}
-            >
-              <FaShoppingCart /> Cart
-            </Link>
-            {user ? (
-              <>
-                <span className="user-name">Welcome, {user.name}</span>
-                <button onClick={handleLogout} className="auth-button">
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/signin"
-                  className="nav-link"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/signup"
-                  className="nav-link"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
+            </>
+          )}
         </div>
-      </nav>
-    </>
+
+        {/* Mobile Menu Button */}
+        <button className="mobile-menu-btn" onClick={toggleMenu}>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Mobile Navigation */}
+        <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
+          {allNavLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="nav-link"
+              onClick={closeMenu}
+            >
+              {link.text}
+            </Link>
+          ))}
+
+          <Link to="/wishlist" className="wishlist-icon" onClick={closeMenu}>
+            <Heart size={18} /> Wishlist
+          </Link>
+
+          {user ? (
+            <>
+              <span className="user-name">Welcome, {user.name}</span>
+              <button onClick={handleLogout} className="auth-button signout">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/signin"
+                className="auth-button signin"
+                onClick={closeMenu}
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="auth-button signout"
+                onClick={closeMenu}
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
   );
 }

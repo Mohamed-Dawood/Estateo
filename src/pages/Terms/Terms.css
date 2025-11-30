@@ -1,0 +1,71 @@
+.terms-page {
+  min-height: calc(100vh - 72px);
+  padding-top: 2rem;
+}
+
+.terms-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.terms-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.terms-header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.terms-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.terms-section {
+  margin-bottom: 2rem;
+}
+
+.terms-section h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.terms-section p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.contact-terms {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.contact-terms a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-terms a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .terms-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .terms-section p {
+    text-align: left;
+  }
+}

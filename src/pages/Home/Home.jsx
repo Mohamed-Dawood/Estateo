@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
 import HomeImage from '../../assets/Images/Home/1 (11).png';
+import Testimonials from '../../components/Testimonials/Testimonials';
+import Team from '../../components/Team/Team';
+import Statistics from '../../components/Statistics/Statistics';
+import Partners from '../../components/Partners/Partners';
+import Newsletter from '../../components/Newsletter/Newsletter';
+
+
 export default function Home() {
   return (
     <div className="home">
@@ -11,7 +18,7 @@ export default function Home() {
             you'll love to live
           </h1>
           <p className="home-description">
-            estateo is a real estate solution that gives you the local scoop
+            Estateo is a real estate solution that gives you the local scoop
             about homes. Search confidently with your trusted source of homes
             for sale or rent.
           </p>
@@ -28,6 +35,12 @@ export default function Home() {
           <img src={HomeImage} alt="Modern home exterior" />
         </div>
       </div>
+
+      <Statistics />
+      <Testimonials />
+      <Team />
+      <Partners />
+      <Newsletter />
     </div>
   );
 }
