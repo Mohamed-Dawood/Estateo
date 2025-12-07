@@ -4,6 +4,9 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
+import Properties from "./pages/Properties/Properties";
+import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
+
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import Home from './pages/Home/Home';
@@ -30,7 +33,9 @@ function App() {
 
             <Route path="/services" element={<Services />} />
 
-            <Route path="/projects" element={<div>Projects Page</div>} />
+            <Route path="/properties" element={<Properties />} />
+
+            <Route path="/property/:id" element={<PropertyDetails />} />
 
             <Route path="/contact" element={<Contact />} />
 
