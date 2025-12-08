@@ -1,256 +1,179 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./PropertyDetails.css";
+import { useWishlist } from "../../context/WishlistContext";
 
 export default function PropertyDetails() {
   const { id } = useParams();
+  const { addToWishlist, wishlist } = useWishlist();
   const [property, setProperty] = useState(null);
 
   const allProperties = [
-    { 
-      id: 1, 
-      title: "Modern Family House", 
-      price: 120000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80", 
-      description: "Spacious modern family house with a bright living area. Perfect for families looking for comfort and convenience. Comes with a backyard and modern kitchen.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 250,
-      type: "House"
+    {
+      id: 1,
+      title: "Modern Family House",
+      price: 120000,
+      location: "Cairo, Egypt",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0?auto=format&fit=crop&w=800&q=80",
+      desc: "A stylish modern home perfect for families.\nFeatures open living spaces and natural lighting.\nLocated in a peaceful Cairo neighborhood."
     },
-    { 
-      id: 2, 
-      title: "Luxury Villa", 
-      price: 250000, 
-      location: "Alexandria, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Elegant luxury villa with a private pool and lush garden. Includes 5 bedrooms and 4 bathrooms. Perfect for those who value privacy and comfort.",
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 400,
-      type: "Villa"
+    {
+      id: 2,
+      title: "Luxury Villa",
+      price: 250000,
+      location: "Alexandria, Egypt",
+      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8THV4dXJ5JTIwVmlsbGF8ZW58MHx8MHx8fDA%3D",
+      desc: "A premium villa offering luxury at every corner.\nSpacious rooms, private garden, and stunning architecture.\nPerfect for high-end living."
     },
-    { 
-      id: 3, 
-      title: "Cozy Apartment", 
-      price: 80000, 
-      location: "Giza, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "A small, cozy apartment ideal for young couples or singles. Bright and airy rooms with modern finishes. Conveniently located near shops and cafes.",
-      bedrooms: 2,
-      bathrooms: 1,
-      area: 90,
-      type: "Apartment"
+    {
+      id: 3,
+      title: "Cozy Apartment",
+      price: 80000,
+      location: "Giza, Egypt",
+      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Q296eSUyMEFwYXJ0bWVudHxlbnwwfHwwfHx8MA%3D%3D",
+      desc: "A warm and inviting apartment ideal for small families.\nEnjoy modern finishes and smart space usage.\nLocated near essential facilities."
     },
-    { 
-      id: 4, 
-      title: "Beachside Villa", 
-      price: 300000, 
-      location: "Hurghada, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Beautiful villa with direct beach access. Spacious interiors with 4 bedrooms and 3 bathrooms. Ideal for summer retreats and family vacations.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 350,
-      type: "Villa"
+    {
+      id: 4,
+      title: "Beachside Villa",
+      price: 300000,
+      location: "Hurghada, Egypt",
+      image: "https://images.unsplash.com/photo-1560946237-cab0777bc180?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QmVhY2hzaWRlJTIwVmlsbGF8ZW58MHx8MHx8fDA%3D",
+      desc: "Wake up to ocean views every day.\nA luxurious villa steps away from the beach.\nPerfect for relaxation and seaside living."
     },
-    { 
-      id: 5, 
-      title: "Downtown Apartment", 
-      price: 95000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Modern apartment in the heart of the city. 2 bedrooms and 2 bathrooms with ample natural light. Close to cafes, shops, and public transport.",
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 110,
-      type: "Apartment"
+    {
+      id: 5,
+      title: "Downtown Apartment",
+      price: 95000,
+      location: "Cairo, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1733274007142-d6750c8918c2?q=80&w=1079&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Q296eSUyMEFwYXJ0bWVudHxlbnwwfHwwfHx8MA%3D%3D",
+      desc: "Live in the heart of Cairo with everything around you.\nA modern apartment with sleek interiors.\nGreat for students and professionals."
     },
-    { 
-      id: 6, 
-      title: "Modern Duplex", 
-      price: 180000, 
-      location: "Alexandria, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Spacious duplex with modern interiors. 3 bedrooms and 3 bathrooms, ideal for families. Features an open-plan living area and private balcony.",
-      bedrooms: 3,
-      bathrooms: 3,
-      area: 220,
-      type: "Duplex"
+    {
+      id: 6,
+      title: "Modern Duplex",
+      price: 180000,
+      location: "Alexandria, Egypt",
+      image: "https://images.unsplash.com/photo-1757924461488-ef9ad0670978?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8TW9kZXJuJTIwRHVwbGV4fGVufDB8fDB8fHww",
+      desc: "A beautiful duplex combining comfort and elegance.\nFeatures wide living areas and modern design.\nSuitable for medium to large families."
     },
-    { 
-      id: 7, 
-      title: "Family Townhouse", 
-      price: 140000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Charming townhouse suitable for large families. 4 bedrooms and 3 bathrooms with garden space. Located in a peaceful residential area.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 250,
-      type: "Townhouse"
+    {
+      id: 7,
+      title: "Family Townhouse",
+      price: 140000,
+      location: "Cairo, Egypt",
+      image: "https://images.unsplash.com/photo-1596418139129-0726b7109974?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8RnVhbWx5JTIwVG93bmhvdXNlfGVufDB8fDB8fHww",
+      desc: "A spacious townhouse in a quiet residential area.\nOffers multiple rooms and a private outdoor space.\nDesigned for growing families."
     },
-    { 
-      id: 8, 
-      title: "Mountain Cabin", 
-      price: 90000, 
-      location: "Sinai, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Cozy cabin with stunning mountain views. 2 bedrooms and 1 bathroom, perfect for weekend getaways. Surrounded by nature for peaceful living.",
-      bedrooms: 2,
-      bathrooms: 1,
-      area: 100,
-      type: "Cabin"
+    {
+      id: 8,
+      title: "Mountain Cabin",
+      price: 90000,
+      location: "Sinai, Egypt",
+      image: "https://images.unsplash.com/photo-1482192505345-5655af888cc4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TW91bnRhaW4lMjBDYWJpbnxlbnwwfHwwfHx8MA%3D%3D",
+      desc: "A peaceful cabin surrounded by nature and mountains.\nIdeal for weekend getaways or simple living.\nCozy, warm, and full of charm."
     },
-    { 
-      id: 9, 
-      title: "Luxury Penthouse", 
-      price: 350000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Top-floor penthouse with panoramic city views. 5 bedrooms and 4 bathrooms. Features luxury finishes and large terraces.",
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 400,
-      type: "Penthouse"
+    {
+      id: 9,
+      title: "Luxury Penthouse",
+      price: 350000,
+      location: "Cairo, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1733320822557-e4ccfb5f20d1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8THV4dXJ5JTIwUGVudGhvdXNlfGVufDB8fDB8fHww",
+      desc: "A stunning penthouse offering premium city views.\nHigh ceilings, elegant finishes, and top-class comfort.\nThe ultimate luxury lifestyle."
     },
-    { 
-      id: 10, 
-      title: "Cozy Studio", 
-      price: 60000, 
-      location: "Giza, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Compact studio ideal for singles. 1 bedroom and 1 bathroom with smart layout. Convenient city location with easy access to amenities.",
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 50,
-      type: "Studio"
+    {
+      id: 10,
+      title: "Cozy Studio",
+      price: 60000,
+      location: "Giza, Egypt",
+      image: "https://images.unsplash.com/photo-1537212013010-de9c76f8f0ae?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      desc: "A compact studio perfect for students and solo residents.\nSmart layout with modern touches.\nAffordable and close to main services."
     },
-    { 
-      id: 11, 
-      title: "Modern House with Pool", 
-      price: 220000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Modern house with private pool and spacious rooms. 4 bedrooms and 3 bathrooms. Ideal for family living and entertaining guests.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 300,
-      type: "House"
+    {
+      id: 11,
+      title: "Modern House with Pool",
+      price: 220000,
+      location: "Cairo, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TW9kZXJuJTIwSG91c2UlMjB3aXRoJTIwUG9vbHxlbnwwfHwwfHx8MA%3D%3D",
+      desc: "A beautifully designed home featuring a private pool.\nEnjoy luxury living with spacious rooms and natural light.\nPerfect for families."
     },
-    { 
-      id: 12, 
-      title: "Seaside Apartment", 
-      price: 130000, 
-      location: "Alexandria, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Bright seaside apartment with stunning views. 3 bedrooms and 2 bathrooms. Perfect for enjoying a relaxed coastal lifestyle.",
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 150,
-      type: "Apartment"
+    {
+      id: 12,
+      title: "Seaside Apartment",
+      price: 130000,
+      location: "Alexandria, Egypt",
+      image: "https://images.unsplash.com/photo-1565053805884-2766c2fda174?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fFNlYXNpZGUlMjBBcGFydG1lbnR8ZW58MHx8MHx8fDA%3D",
+      desc: "A bright apartment overlooking the sea.\nModern design with relaxing vibes.\nIdeal for coastal living lovers."
     },
-    { 
-      id: 13, 
-      title: "Villa with Garden", 
-      price: 270000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Elegant villa with a spacious garden and outdoor space. 5 bedrooms and 4 bathrooms. Perfect for family gatherings and entertainment.",
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 380,
-      type: "Villa"
+    {
+      id: 13,
+      title: "Villa with Garden",
+      price: 270000,
+      location: "Cairo, Egypt",
+      image: "https://images.unsplash.com/photo-1599932904184-02a07911e629?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8VmlsbGElMjB3aXRoJTIwR2FyZGVufGVufDB8fDB8fHww",
+      desc: "A spacious villa with a beautiful private garden.\nPerfect for families who enjoy outdoor space.\nElegant design and peaceful location."
     },
-    { 
-      id: 14, 
-      title: "Urban Loft", 
-      price: 110000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-      description: "Modern urban loft with open-plan living area. 2 bedrooms and 2 bathrooms. Located in the city center close to nightlife and cafes.",
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 120,
-      type: "Loft"
+    {
+      id: 14,
+      title: "Urban Loft",
+      price: 110000,
+      location: "Cairo, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1661964071594-0d5ea642833b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8VXJiYW4lMjBMb2Z0fGVufDB8fDB8fHww",
+      desc: "A modern loft with high ceilings and industrial design.\nPerfect for young professionals.\nLocated in a lively urban area."
     },
-    { 
-      id: 15, 
-      title: "Suburban House", 
-      price: 150000, 
-      location: "Giza, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Comfortable suburban house with 3 bedrooms and 2 bathrooms. Quiet neighborhood with parks and schools nearby. Perfect for family life.",
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 200,
-      type: "House"
+    {
+      id: 15,
+      title: "Suburban House",
+      price: 150000,
+      location: "Giza, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1730500169170-a4253864a86f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8U3VidXJiYW4lMjBIb3VzZXxlbnwwfHwwfHx8MA%3D%3D",
+      desc: "A quiet suburban home ideal for families.\nFeatures a calm atmosphere and spacious layout.\nClose to schools and daily needs."
     },
-    { 
-      id: 16, 
-      title: "Modern Villa", 
-      price: 300000, 
-      location: "Hurghada, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Luxury modern villa with 4 bedrooms and 3 bathrooms. Includes a private pool and terrace with sea view. Ideal for luxurious living.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 360,
-      type: "Villa"
+    {
+      id: 16,
+      title: "Modern Villa",
+      price: 300000,
+      location: "Hurghada, Egypt",
+      image: "https://images.unsplash.com/photo-1670589953882-b94c9cb380f5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TW9kZXJuJTIwVmlsbGF8ZW58MHx8MHx8fDA%3D",
+      desc: "A beautiful modern villa with high-end finishing.\nLocated near the Red Sea for a luxurious experience.\nOffers privacy and comfort."
     },
-    { 
-      id: 17, 
-      title: "Compact Apartment", 
-      price: 70000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Small but smartly designed apartment. 1 bedroom and 1 bathroom. Perfect for singles or couples looking for a city lifestyle.",
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 55,
-      type: "Apartment"
+    {
+      id: 17,
+      title: "Compact Apartment",
+      price: 70000,
+      location: "Cairo, Egypt",
+      image: "https://images.unsplash.com/photo-1639664701039-f747268e2243?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fENvbXBhY3QlMjBBcGFydG1lbnR8ZW58MHx8MHx8fDA%3D",
+      desc: "A neat apartment perfect for small families or singles.\nModern layout with efficient space usage.\nLocated near transportation."
     },
-    { 
-      id: 18, 
-      title: "Family Villa", 
-      price: 240000, 
-      location: "Alexandria, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Spacious family villa with 4 bedrooms and 3 bathrooms. Includes a garden and garage. Ideal for a comfortable family life.",
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 320,
-      type: "Villa"
+    {
+      id: 18,
+      title: "Family Villa",
+      price: 240000,
+      location: "Alexandria, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1661751356300-c4756372be3b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8RmFtaWx5JTIwVmlsbGF8ZW58MHx8MHx8fDA%3D",
+      desc: "A warm family villa offering comfort and space.\nFeatures multiple bedrooms and a relaxing environment.\nGreat for long-term living."
     },
-    { 
-      id: 19, 
-      title: "Luxury Penthouse Suite", 
-      price: 360000, 
-      location: "Cairo, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Exclusive penthouse suite with 5 bedrooms and 4 bathrooms. Panoramic city views and luxury interiors. Perfect for high-end living.",
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 420,
-      type: "Penthouse"
+    {
+      id: 19,
+      title: "Luxury Penthouse Suite",
+      price: 360000,
+      location: "Cairo, Egypt",
+      image: "https://images.unsplash.com/photo-1702411200201-3061d0eea802?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8THV4dXJ5JTIwUGVudGhvdXNlJTIwU3VpdGV8ZW58MHx8MHx8fDA%3D",
+      desc: "An exceptional penthouse suite with panoramic city views.\nLuxury finishes and spacious interiors.\nPerfect for those seeking the ultimate urban lifestyle."
     },
-    { 
-      id: 20, 
-      title: "Cozy Countryside Cabin", 
-      price: 95000, 
-      location: "Sinai, Egypt", 
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      description: "Quiet countryside cabin with 2 bedrooms and 1 bathroom. Ideal for weekend getaways and nature lovers. Surrounded by beautiful landscapes.",
-      bedrooms: 2,
-      bathrooms: 1,
-      area: 95,
-      type: "Cabin"
+    {
+      id: 20,
+      title: "Cozy Countryside Cabin",
+      price: 95000,
+      location: "Sinai, Egypt",
+      image: "https://plus.unsplash.com/premium_photo-1686090449933-2057b9fba09c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Q296eSUyMENvdW50cnlzaWRlJTIwQ2FiaW58ZW58MHx8MHx8fDA%3D",
+      desc: "A charming cabin in the countryside of Sinai.\nPerfect for nature lovers and weekend retreats.\nCozy interior with scenic outdoor surroundings."
     }
   ];
   
-  
-  
+
+
+
 
   useEffect(() => {
     const found = allProperties.find((p) => p.id === parseInt(id));
@@ -280,24 +203,17 @@ export default function PropertyDetails() {
             <li>Type: {property.type}</li>
           </ul>
 
-          <p className="description">{property.description}</p>
+          <p className="description">{property.desc}</p>
 
           <div className="cta-row">
-            <button className="btn-primary">Book a Visit</button>
+          <Link to="/contact" className="btn-primary ">
+              Book a Visit
+          </Link>
             <button
               className="btn-secondary"
-              onClick={() => {
-                const prev = JSON.parse(localStorage.getItem("favourites")) || [];
-                const exists = prev.find((p) => p.id === property.id);
-                if (!exists) {
-                  localStorage.setItem("favourites", JSON.stringify([...prev, property]));
-                  alert("Added to favourites ❤️");
-                } else {
-                  alert("Already in favourites");
-                }
-              }}
+              onClick={() => addToWishlist(property)}
             >
-              Add to Favourite
+              {wishlist.some(p => p.id === property.id) ? "Remove from Favourite" : "Add to Favourite"}
             </button>
           </div>
         </div>
