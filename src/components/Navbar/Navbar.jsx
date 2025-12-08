@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useWishlist } from '../../context/WishlistContext';
 import { Menu, X, Heart } from 'lucide-react';
 import { navLinks as allNavLinks } from '../../constants/data';
 import './Navbar.css';
@@ -8,6 +9,8 @@ import './Navbar.css';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
+  const wishlistContext = useWishlist();
+  const wishlist = wishlistContext?.wishlist || [];
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -50,7 +53,7 @@ export default function Navbar() {
         <div className="nav-auth desktop">
           <Link to="/wishlist" className="wishlist-icon">
             <Heart size={20} />
-            <span className="badge">3</span> {/* Example badge */}
+            <span className="badge">{wishlist.length}</span>
           </Link>
 
           {user ? (

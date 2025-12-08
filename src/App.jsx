@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { WishlistProvider } from './context/WishlistContext';
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -15,43 +16,46 @@ import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import FAQ from './pages/FAQ/FAQ';
 import Terms from './pages/Terms/Terms';
+import Wishlist from './pages/Wishlist/Wishlist';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        {/* Always on top */}
-        <Navbar />
+        <WishlistProvider>
+          {/* Always on top */}
+          <Navbar />
 
-        {/* Page Content */}
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
+          {/* Page Content */}
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/about-us" element={<About />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/about-us" element={<About />} />
 
-            <Route path="/services" element={<Services />} />
+              <Route path="/services" element={<Services />} />
 
-            <Route path="/properties" element={<Properties />} />
+              <Route path="/properties" element={<Properties />} />
 
-            <Route path="/property/:id" element={<PropertyDetails />} />
+              <Route path="/property/:id" element={<PropertyDetails />} />
 
-            <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<Contact />} />
 
-            <Route path="/wishlist" element={<div>Wishlist Page</div>} />
+              <Route path="/wishlist" element={<Wishlist />} />
 
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
 
-            <Route path="/faqs" element={<FAQ />} />
+              <Route path="/faqs" element={<FAQ />} />
 
-            <Route path="/terms" element={<Terms />} />
-          </Routes>
-        </div>
+              <Route path="/terms" element={<Terms />} />
+            </Routes>
+          </div>
 
-        {/* Always at the bottom */}
-        <Footer />
+          {/* Always at the bottom */}
+          <Footer />
+        </WishlistProvider>
       </AuthProvider>
     </Router>
   );

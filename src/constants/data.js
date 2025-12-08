@@ -279,7 +279,7 @@ export const footerData = {
     links: [
       { label: 'Help Center', href: '#' },
       { label: 'FAQs', href: '/faqs' },
-      { label: 'Contact Support', href: '#' },
+      { label: 'Contact Support', href: '/contact' },
       { label: 'Privacy Policy', href: '#' },
     ],
   },
@@ -293,7 +293,7 @@ export const footerData = {
     ],
   },
   contact: {
-    email: 'mohamedbasyonydawood@gmail.com',
+    email: 'Estateo@gmail.com',
     phone: '+201062842697',
     address: 'Tanta, Gharbia, Egypt',
   },
@@ -346,7 +346,7 @@ export const contactData = {
       city: 'Tanta',
       address: 'ElBahr, Tanta, Egypt',
       phone: '+201062842697',
-      email: 'mohamedbasyonydawood@gmail.com',
+      email: 'Estateo@gmail.com',
     },
     {
       id: 2,
