@@ -1,0 +1,206 @@
+/* Navbar */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Container */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #007bff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  color: #0056b3;
+}
+
+/* Desktop Links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #007bff;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Wishlist Icon */
+.wishlist-icon {
+  position: relative;
+  font-size: 1.5rem;
+  color: #ff4d6d;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s;
+  margin-right: 1rem;
+}
+
+.wishlist-icon:hover {
+  color: #ff1a40;
+  transform: scale(1.2);
+}
+
+.wishlist-icon .badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff1a40;
+  color: #fff;
+  font-size: 0.7rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Auth Buttons */
+.nav-auth.desktop {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* spacing between wishlist and buttons */
+}
+
+.auth-button {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-left: 0.5rem; /* space between buttons */
+}
+
+.auth-button.signin {
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.auth-button.signin:hover {
+  background: #007bff;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.auth-button.signout {
+  background: #007bff;
+  color: #fff;
+  border: 2px solid #007bff;
+}
+
+.auth-button.signout:hover {
+  background: #0056b3;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  z-index: 1001;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav-links.desktop,
+  .nav-auth.desktop {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 72px);
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .mobile-menu .nav-link,
+  .mobile-menu .wishlist-icon,
+  .mobile-menu .auth-button,
+  .mobile-menu .user-name {
+    margin-bottom: 0.75rem; /* spacing between items */
+  }
+
+  .mobile-menu .auth-button {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+  }
+}
