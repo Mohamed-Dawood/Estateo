@@ -52,19 +52,29 @@ export const signup = async (req, res) => {
       password: hashedPassword,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
+      // Auto-verify in development mode
+      isVerified: process.env.NODE_ENV === 'development',
     });
 
     // jwt
-
     generateTokenAndSetCookies(res, user._id);
 
     await user.save();
 
-    await sendVerificationEmail(user.email, verificationToken);
+    // Try to send verification email (will be skipped in dev mode)
+    try {
+      await sendVerificationEmail(user.email, verificationToken);
+    } catch (emailError) {
+      // Log but don't fail the signup in dev mode
+      console.log('Email sending skipped or failed:', emailError.message);
+    }
 
     res.status(201).json({
       success: true,
-      message: 'User created successfully',
+      message:
+        process.env.NODE_ENV === 'development'
+          ? 'User created successfully (auto-verified in dev mode)'
+          : 'User created successfully. Please verify your email.',
       user: {
         ...user._doc,
         password: undefined,

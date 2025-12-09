@@ -5,9 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const TOKEN = '103ee1b76d2951c1a0aa68dca8badd41';
-// const TOKEN = process.env.MAILTRAP_TOKEN;
-// console.log(process.env.MAILTRAP_TOKEN);
+const TOKEN = process.env.MAILTRAP_TOKEN || '103ee1b76d2951c1a0aa68dca8badd41';
 
 export const transport = Nodemailer.createTransport(
   MailtrapTransport({
@@ -16,10 +14,13 @@ export const transport = Nodemailer.createTransport(
 );
 
 export const sender = {
-  address: 'hello@demomailtrap.com',
-  name: 'Mailtrap Test',
+  address: 'noreply@estateo.com',
+  name: 'Estateo Auth System',
 };
 export const recipients = ['mohamedbasyonidawood23@gmail.com'];
+
+// Development mode - skip email sending
+export const SKIP_EMAIL_IN_DEV = process.env.NODE_ENV === 'development';
 
 // transport
 //   .sendMail({

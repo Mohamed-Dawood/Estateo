@@ -1,4 +1,4 @@
-import { transport, sender } from './mailtrap.config.js';
+import { transport, sender, SKIP_EMAIL_IN_DEV } from './mailtrap.config.js';
 import {
   PASSWORD_RESET_REQUEST_TEMPLATE,
   PASSWORD_RESET_SUCCESS_TEMPLATE,
@@ -8,6 +8,14 @@ import {
 
 export const sendVerificationEmail = async (email, verifyToken) => {
   const recipient = [email];
+
+  // Skip in development mode
+  if (SKIP_EMAIL_IN_DEV) {
+    console.log(`[DEV MODE] Verification email would be sent to: ${email}`);
+    console.log(`[DEV MODE] Verification code: ${verifyToken}`);
+    return { success: true, message: 'Dev mode: Email skipped' };
+  }
+
   try {
     const response = await transport.sendMail({
       from: sender,
@@ -30,11 +38,17 @@ export const sendVerificationEmail = async (email, verifyToken) => {
 export const sendWelcomeEmail = async (email, name) => {
   const recipient = [email];
 
+  // Skip in development mode
+  if (SKIP_EMAIL_IN_DEV) {
+    console.log(`[DEV MODE] Welcome email would be sent to: ${email}`);
+    return { success: true, message: 'Dev mode: Email skipped' };
+  }
+
   try {
     const response = await transport.sendMail({
       from: sender,
       to: recipient,
-      subject: 'Welcome to Auth Company',
+      subject: 'Welcome to Estateo',
       html: WELCOME_EMAIL_TEMPLATE.replace('{{user_name}}', name),
     });
 
@@ -47,6 +61,14 @@ export const sendWelcomeEmail = async (email, name) => {
 
 export const sendPasswordResetEmail = async (email, resetURL) => {
   const recipient = [email];
+
+  // Skip in development mode
+  if (SKIP_EMAIL_IN_DEV) {
+    console.log(`[DEV MODE] Password reset email would be sent to: ${email}`);
+    console.log(`[DEV MODE] Reset URL: ${resetURL}`);
+    return { success: true, message: 'Dev mode: Email skipped' };
+  }
+
   try {
     const response = await transport.sendMail({
       from: sender,
@@ -64,6 +86,15 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
 
 export const sendResetSuccessEmail = async (email) => {
   const recipient = [email];
+
+  // Skip in development mode
+  if (SKIP_EMAIL_IN_DEV) {
+    console.log(
+      `[DEV MODE] Password reset success email would be sent to: ${email}`
+    );
+    return { success: true, message: 'Dev mode: Email skipped' };
+  }
+
   console.log(email);
   try {
     const response = await transport.sendMail({
