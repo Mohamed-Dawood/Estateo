@@ -13,7 +13,7 @@ app.use(express.json());
 const allowedOrigins = [
   'http://localhost:5173', // your Vite dev server
   'https://estateo-two.vercel.app', // your deployed frontend
-  'https://your-app.netlify.app', // optional
+  'https://estateo-theta.vercel.app', // optional
   'https://your-app.onrender.com', // optional
 ];
 
