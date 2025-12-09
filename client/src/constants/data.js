@@ -140,33 +140,28 @@ export const partnersData = [
   {
     id: 1,
     name: 'CBRE Group',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/CBRE_Group_logo.svg/512px-CBRE_Group_logo.svg.png',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUbWuurdUu45n9Kz_5dUp-5uI7lzOWDaItvQ&s',
   },
   {
     id: 2,
     name: 'Keller Williams Realty',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Keller_Williams_Realty_logo.svg/512px-Keller_Williams_Realty_logo.svg.png',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtTiVFMyb1HybnvQ48w2Hs8LQB1zc23zcYUQ&s',
   },
   {
     id: 3,
     name: 'JLL (Jones Lang LaSalle)',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Jll_logo.svg/512px-Jll_logo.svg.png',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxiP5LdpM8B7ETRqK5PcH4aG_0Lo2A73ab9g&s',
   },
   {
     id: 4,
     name: 'Coldwell Banker',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Coldwell_Banker_Logo_2018.svg/512px-Coldwell_Banker_Logo_2018.svg.png',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwbWFpm2HJpTjm4fj41eRnzM4Gyj5WTP_oYA&s',
   },
   {
     id: 5,
     name: 'Century 21 Real Estate',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Century_21_2022_logo.svg/512px-Century_21_2022_logo.svg.png',
-  },
-  {
-    id: 6,
-    name: 'Sotheby’s International Realty',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Sotheby%27s_International_Realty_logo.svg/512px-Sotheby%27s_International_Realty_logo.svg.png',
-  },
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwMDvObiFatC0-65lASb6PPTewJ-hxLfqdpw&s',
+  }
 ];
 
 // Services data
@@ -261,8 +256,8 @@ export const footerData = {
     links: [
       { label: 'About Us', href: '/about' },
       { label: 'Contact Us', href: '/contact' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Blog', href: '/blog' },
+      { label: 'Careers', href: '#' },
+      { label: 'Blog', href: '#' },
     ],
   },
   services: {
@@ -277,19 +272,19 @@ export const footerData = {
   support: {
     title: 'Support',
     links: [
-      { label: 'Help Center', href: '#' },
+      { label: 'Help Center', href: '/contact' },
       { label: 'FAQs', href: '/faqs' },
       { label: 'Contact Support', href: '/contact' },
-      { label: 'Privacy Policy', href: '#' },
+      { label: 'Privacy Policy', href: '/terms' },
     ],
   },
   legal: {
     title: 'Legal',
     links: [
       { label: 'Terms & Conditions', href: '/terms' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Cookie Policy', href: '#' },
-      { label: 'Disclaimer', href: '#' },
+      { label: 'Privacy Policy', href: '/terms' },
+      { label: 'Cookie Policy', href: '/terms' },
+      { label: 'Disclaimer', href: '/terms' },
     ],
   },
   contact: {
