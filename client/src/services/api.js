@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL - Points to local server
-const API_BASE_URL = 'http://localhost:3000/api/auth';
+const API_BASE_URL = 'https://estateo-jab3.vercel.app/api/auth';
 
 // Create axios instance
 const apiClient = axios.create({
